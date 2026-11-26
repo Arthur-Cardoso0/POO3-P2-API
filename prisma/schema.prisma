@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Perfil {
+  ADMIN
+  OPERADOR
+}
+
+enum StatusPedido {
+  PENDENTE
+  CONFIRMADO
+  ENTREGUE
+  CANCELADO
+}
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  email        String   @unique
+  senha        String
+  perfil       Perfil   @default(OPERADOR)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Categoria {
+  id       Int       @id @default(autoincrement())
+  nome     String    @unique
+  produtos Produto[]
+}
+
+model Produto {
+  id           Int          @id @default(autoincrement())
+  nome         String
+  descricao    String       @default("")
+  preco        Decimal      @db.Decimal(10, 2)
+  estoque      Int          @default(0)
+  imagemUrl    String?
+  ativo        Boolean      @default(true)
+  categoriaId  Int
+  categoria    Categoria    @relation(fields: [categoriaId], references: [id])
+  itens        ItemPedido[]
+  criadoEm     DateTime     @default(now())
+  atualizadoEm DateTime     @updatedAt
+
+  @@index([categoriaId])
+}
+
+model Pedido {
+  id             Int          @id @default(autoincrement())
+  clienteNome    String
+  clienteContato String
+  observacao     String?
+  status         StatusPedido @default(PENDENTE)
+  total          Decimal      @db.Decimal(10, 2)
+  itens          ItemPedido[]
+  criadoEm       DateTime     @default(now())
+  atualizadoEm   DateTime     @updatedAt
+}
+
+// Tabela de junção do N:N Pedido x Produto (guarda quantidade e preço no momento da compra)
+model ItemPedido {
+  id            Int     @id @default(autoincrement())
+  pedidoId      Int
+  produtoId     Int
+  quantidade    Int
+  precoUnitario Decimal @db.Decimal(10, 2)
+  subtotal      Decimal @db.Decimal(10, 2)
+  pedido        Pedido  @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  produto       Produto @relation(fields: [produtoId], references: [id])
+
+  @@unique([pedidoId, produtoId])
+  @@index([produtoId])
+}
+
+model Mensagem {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  email    String
+  texto    String
+  lida     Boolean  @default(false)
+  criadoEm DateTime @default(now())
+}
