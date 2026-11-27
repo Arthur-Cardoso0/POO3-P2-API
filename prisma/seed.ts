@@ -7,8 +7,18 @@ const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
 });
 
-// Dados FICTÍCIOS para desenvolvimento. Senha vem do ambiente (nada de senha real no repositório).
-const senhaSeed = process.env.SEED_PASSWORD ?? 'Trocar@12345';
+// Dados FICTÍCIOS apenas para DESENVOLVIMENTO. A senha vem do ambiente (nada de senha no repositório).
+// Em produção NÃO rode este seed: crie o administrador real com `npm run admin:criar`.
+const senhaEnv = process.env.SEED_PASSWORD;
+if (!senhaEnv || senhaEnv.length < 8) {
+  console.error('Defina SEED_PASSWORD (mínimo 8 caracteres) no .env antes de rodar o seed.');
+  process.exit(1);
+}
+if (process.env.NODE_ENV === 'production') {
+  console.error('Seed de demonstração bloqueado em produção. Use `npm run admin:criar`.');
+  process.exit(1);
+}
+const senhaSeed: string = senhaEnv;
 
 async function main() {
   const senha = await hashSenha(senhaSeed);
