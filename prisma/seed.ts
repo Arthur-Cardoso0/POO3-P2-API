@@ -33,28 +33,85 @@ async function main() {
     create: { nome: 'Operador (fictício)', email: 'operador@exemplo.local', senha, perfil: 'OPERADOR' },
   });
 
-  const categorias = ['Mel e derivados', 'Laticínios e ovos', 'Doces e geleias', 'Hortifruti e grãos'];
-  for (const nome of categorias) {
-    await prisma.categoria.upsert({ where: { nome }, update: {}, create: { nome } });
+  // Catálogo do feirante Raízes do Cerrado. Preços e estoques são FICTÍCIOS (apenas demonstração):
+  // o feirante ajusta os valores reais pelo painel. [nome com a unidade de venda, preço].
+  type Item = [string, number];
+  const catalogo: { categoria: string; descricao: string; itens: Item[] }[] = [
+    {
+      categoria: 'Hortifrúti e vegetais frescos',
+      descricao: 'Colhido na semana da feira.',
+      itens: [
+        ['Alface crespa (unidade)', 3.5], ['Alface lisa (unidade)', 3.5], ['Alface americana (unidade)', 4],
+        ['Couve-manteiga (maço)', 3.5], ['Rúcula (maço)', 4], ['Agrião (maço)', 4], ['Espinafre (maço)', 4.5],
+        ['Almeirão (maço)', 3.5], ['Repolho (unidade)', 6], ['Salsinha (maço)', 2.5], ['Cebolinha (maço)', 2.5],
+        ['Mandioca (kg)', 6], ['Batata-doce (kg)', 7], ['Inhame (kg)', 12], ['Cará (kg)', 10],
+        ['Cenoura (kg)', 6], ['Beterraba (kg)', 6.5], ['Rabanete (maço)', 4],
+        ['Abóbora cabotiá (kg)', 5], ['Abóbora moranga (kg)', 4.5], ['Abóbora de pescoço (kg)', 4.5],
+        ['Quiabo (kg)', 12], ['Jiló (kg)', 9], ['Maxixe (kg)', 10], ['Abobrinha (kg)', 7], ['Berinjela (kg)', 8],
+        ['Chuchu (kg)', 5], ['Tomate caipira (kg)', 11], ['Vagem (kg)', 13], ['Milho-verde (espiga)', 2],
+        ['Banana prata (kg)', 7], ['Banana nanica (kg)', 6], ['Banana maçã (kg)', 8], ['Banana-da-terra (kg)', 8],
+        ['Mamão (unidade)', 7], ['Laranja (kg)', 4.5], ['Mexerica ponkan (kg)', 6], ['Limão-taiti (kg)', 7],
+        ['Limão-cravo (kg)', 6], ['Abacate (unidade)', 6], ['Manga (kg)', 8], ['Goiaba (kg)', 9],
+        ['Maracujá (kg)', 14], ['Jabuticaba (kg)', 18], ['Acerola (kg)', 15], ['Pequi (dúzia)', 18],
+      ],
+    },
+    {
+      categoria: 'Origem animal e laticínios',
+      descricao: 'Produção artesanal da fazenda.',
+      itens: [
+        ['Ovos caipiras (dúzia)', 16], ['Ovos de codorna (cartela)', 10],
+        ['Queijo minas frescal (peça)', 28], ['Queijo meia-cura (peça)', 38],
+        ['Requeijão artesanal de corte (peça)', 30], ['Requeijão cremoso (pote)', 16],
+        ['Manteiga caseira (pote)', 22], ['Nata (pote)', 14],
+        ['Doce de leite pastoso (pote)', 18], ['Doce de leite em barra (unidade)', 8],
+        ['Mel silvestre (500 g)', 32], ['Favo de mel (unidade)', 35], ['Própolis (frasco)', 25], ['Pólen apícola (pote)', 28],
+      ],
+    },
+    {
+      categoria: 'Grãos, farináceos e beneficiados',
+      descricao: 'Beneficiado de forma artesanal.',
+      itens: [
+        ['Feijão carioca (kg)', 9], ['Feijão preto (kg)', 9], ['Feijão fradinho (kg)', 10], ['Feijão de corda (kg)', 10],
+        ['Milho seco para canjica (kg)', 7], ['Milho de pipoca (kg)', 8], ['Amendoim cru (kg)', 14],
+        ['Farinha de mandioca crua (kg)', 11], ['Farinha de mandioca torrada (kg)', 12],
+        ['Polvilho doce (kg)', 13], ['Polvilho azedo (kg)', 13], ['Fubá de moinho d\'água (kg)', 8],
+        ['Rapadura pura (unidade)', 6], ['Rapadura temperada (unidade)', 7], ['Melado de cana (garrafa)', 18],
+        ['Açúcar mascavo (kg)', 10], ['Café em grão (500 g)', 28], ['Café torrado e moído (500 g)', 28],
+      ],
+    },
+    {
+      categoria: 'Ervas, temperos e conservas',
+      descricao: 'Fresco ou conservado de forma artesanal.',
+      itens: [
+        ['Manjericão (maço)', 3.5], ['Alecrim (maço)', 3.5], ['Hortelã (maço)', 3], ['Coentro (maço)', 2.5],
+        ['Tomilho (maço)', 4], ['Sálvia (maço)', 4], ['Folhas de louro (pacote)', 3],
+        ['Alho roxo (kg)', 35], ['Réstia de alho (unidade)', 25], ['Cebola (kg)', 6], ['Gengibre (kg)', 20],
+        ['Açafrão-da-terra em raiz (100 g)', 8], ['Açafrão-da-terra em pó (pote)', 9], ['Colorau (pote)', 8],
+        ['Pimenta malagueta (100 g)', 5], ['Pimenta dedo-de-moça (100 g)', 5], ['Pimenta-de-cheiro (100 g)', 5],
+        ['Pimenta bode (100 g)', 6], ['Pimenta cumari (100 g)', 6],
+        ['Pimentas curtidas (vidro)', 14], ['Pequi em conserva (vidro)', 24], ['Compota de frutas (vidro)', 16],
+      ],
+    },
+  ];
+
+  for (const { categoria } of catalogo) {
+    await prisma.categoria.upsert({ where: { nome: categoria }, update: {}, create: { nome: categoria } });
   }
   const cat = Object.fromEntries(
     (await prisma.categoria.findMany()).map((c) => [c.nome, c.id]),
   ) as Record<string, number>;
 
-  // Produtos e preços FICTÍCIOS de demonstração: troque pelos produtos reais do feirante.
   if ((await prisma.produto.count()) === 0) {
     await prisma.produto.createMany({
-      data: [
-        { nome: 'Mel silvestre 500g', descricao: 'Mel puro de flores do cerrado, sem aditivos.', preco: 32, estoque: 20, categoriaId: cat['Mel e derivados']! },
-        { nome: 'Própolis em gotas', descricao: 'Extrato de própolis, frasco de 30 ml.', preco: 25, estoque: 10, categoriaId: cat['Mel e derivados']! },
-        { nome: 'Queijo minas artesanal', descricao: 'Fresco, feito com leite da fazenda (peça de cerca de 500g).', preco: 30, estoque: 12, categoriaId: cat['Laticínios e ovos']! },
-        { nome: 'Ovos caipiras (dúzia)', descricao: 'De galinhas criadas soltas.', preco: 16, estoque: 30, categoriaId: cat['Laticínios e ovos']! },
-        { nome: 'Doce de leite caseiro', descricao: 'Pote de 400g, em tacho.', preco: 18, estoque: 15, categoriaId: cat['Doces e geleias']! },
-        { nome: 'Geleia de pequi', descricao: 'Vidro de 250g, feita na fazenda.', preco: 22, estoque: 8, categoriaId: cat['Doces e geleias']! },
-        { nome: 'Rapadura (unidade)', descricao: 'Rapadura de engenho, cerca de 300g.', preco: 6, estoque: 40, categoriaId: cat['Doces e geleias']! },
-        { nome: 'Farinha de mandioca 1kg', descricao: 'Torrada artesanalmente.', preco: 12, estoque: 25, categoriaId: cat['Hortifruti e grãos']! },
-        { nome: 'Cesta de hortaliças da estação', descricao: 'Colhidas na semana da feira.', preco: 35, estoque: 10, categoriaId: cat['Hortifruti e grãos']! },
-      ],
+      data: catalogo.flatMap(({ categoria, descricao, itens }) =>
+        itens.map(([nome, preco]) => ({
+          nome,
+          descricao,
+          preco,
+          estoque: 20,
+          categoriaId: cat[categoria]!,
+        })),
+      ),
     });
   }
   console.log('Seed concluído.');
