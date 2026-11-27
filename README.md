@@ -9,7 +9,7 @@ O front-end (Next.js/React) fica em outro repositório e consome esta API.
 npm install
 cp .env.example .env        # ajuste DATABASE_URL e JWT_SECRET
 npx prisma migrate dev      # aplica as migrations
-npm run db:seed             # dados fictícios (admin@exemplo.local / operador@exemplo.local)
+npm run db:seed             # dados fictícios p/ DESENVOLVIMENTO (exige SEED_PASSWORD no .env)
 npm run start:dev           # http://localhost:3333
 npm test                    # testes (Vitest)
 ```
@@ -40,3 +40,13 @@ Os serviços dependem de **classes abstratas** de repositório (injeção por co
 | `DELETE /produtos/:id` (desativa), `GET/POST /usuarios`, `GET /relatorios/*` | só ADMIN |
 
 Fluxo de status do pedido: `PENDENTE → CONFIRMADO → ENTREGUE`; cancelar é possível a partir de `PENDENTE` ou `CONFIRMADO`.
+
+## Produção: primeiro administrador
+
+O seed de demonstração é bloqueado em produção. Crie o administrador real (ou redefina a senha dele) com:
+
+```bash
+ADMIN_NOME="Nome" ADMIN_EMAIL="admin@dominio.com" ADMIN_SENHA="senha-forte-10+" npm run admin:criar
+```
+
+No PowerShell: `$env:ADMIN_NOME="Nome"; $env:ADMIN_EMAIL="..."; $env:ADMIN_SENHA="..."; npm run admin:criar`.
