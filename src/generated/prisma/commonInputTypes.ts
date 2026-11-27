@@ -201,6 +201,13 @@ export type EnumStatusPedidoFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel> | $Enums.StatusPedido
 }
 
+export type EnumDiaFeiraFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiaFeira | Prisma.EnumDiaFeiraFieldRefInput<$PrismaModel>
+  in?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel> | $Enums.DiaFeira
+}
+
 export type EnumStatusPedidoWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.StatusPedido | Prisma.EnumStatusPedidoFieldRefInput<$PrismaModel>
   in?: $Enums.StatusPedido[] | Prisma.ListEnumStatusPedidoFieldRefInput<$PrismaModel>
@@ -209,6 +216,16 @@ export type EnumStatusPedidoWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel>
+}
+
+export type EnumDiaFeiraWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiaFeira | Prisma.EnumDiaFeiraFieldRefInput<$PrismaModel>
+  in?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDiaFeiraWithAggregatesFilter<$PrismaModel> | $Enums.DiaFeira
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -411,6 +428,13 @@ export type NestedEnumStatusPedidoFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel> | $Enums.StatusPedido
 }
 
+export type NestedEnumDiaFeiraFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiaFeira | Prisma.EnumDiaFeiraFieldRefInput<$PrismaModel>
+  in?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel> | $Enums.DiaFeira
+}
+
 export type NestedEnumStatusPedidoWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.StatusPedido | Prisma.EnumStatusPedidoFieldRefInput<$PrismaModel>
   in?: $Enums.StatusPedido[] | Prisma.ListEnumStatusPedidoFieldRefInput<$PrismaModel>
@@ -419,6 +443,16 @@ export type NestedEnumStatusPedidoWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStatusPedidoFilter<$PrismaModel>
+}
+
+export type NestedEnumDiaFeiraWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DiaFeira | Prisma.EnumDiaFeiraFieldRefInput<$PrismaModel>
+  in?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DiaFeira[] | Prisma.ListEnumDiaFeiraFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDiaFeiraWithAggregatesFilter<$PrismaModel> | $Enums.DiaFeira
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDiaFeiraFilter<$PrismaModel>
 }
 
 

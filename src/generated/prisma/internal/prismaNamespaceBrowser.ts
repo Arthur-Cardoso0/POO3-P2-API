@@ -118,6 +118,7 @@ export const PedidoScalarFieldEnum = {
   clienteContato: 'clienteContato',
   observacao: 'observacao',
   status: 'status',
+  retirada: 'retirada',
   total: 'total',
   criadoEm: 'criadoEm',
   atualizadoEm: 'atualizadoEm'

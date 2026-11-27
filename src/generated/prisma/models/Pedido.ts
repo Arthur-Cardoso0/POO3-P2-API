@@ -42,6 +42,7 @@ export type PedidoMinAggregateOutputType = {
   clienteContato: string | null
   observacao: string | null
   status: $Enums.StatusPedido | null
+  retirada: $Enums.DiaFeira | null
   total: runtime.Decimal | null
   criadoEm: Date | null
   atualizadoEm: Date | null
@@ -53,6 +54,7 @@ export type PedidoMaxAggregateOutputType = {
   clienteContato: string | null
   observacao: string | null
   status: $Enums.StatusPedido | null
+  retirada: $Enums.DiaFeira | null
   total: runtime.Decimal | null
   criadoEm: Date | null
   atualizadoEm: Date | null
@@ -64,6 +66,7 @@ export type PedidoCountAggregateOutputType = {
   clienteContato: number
   observacao: number
   status: number
+  retirada: number
   total: number
   criadoEm: number
   atualizadoEm: number
@@ -87,6 +90,7 @@ export type PedidoMinAggregateInputType = {
   clienteContato?: true
   observacao?: true
   status?: true
+  retirada?: true
   total?: true
   criadoEm?: true
   atualizadoEm?: true
@@ -98,6 +102,7 @@ export type PedidoMaxAggregateInputType = {
   clienteContato?: true
   observacao?: true
   status?: true
+  retirada?: true
   total?: true
   criadoEm?: true
   atualizadoEm?: true
@@ -109,6 +114,7 @@ export type PedidoCountAggregateInputType = {
   clienteContato?: true
   observacao?: true
   status?: true
+  retirada?: true
   total?: true
   criadoEm?: true
   atualizadoEm?: true
@@ -207,6 +213,7 @@ export type PedidoGroupByOutputType = {
   clienteContato: string
   observacao: string | null
   status: $Enums.StatusPedido
+  retirada: $Enums.DiaFeira
   total: runtime.Decimal
   criadoEm: Date
   atualizadoEm: Date
@@ -241,6 +248,7 @@ export type PedidoWhereInput = {
   clienteContato?: Prisma.StringFilter<"Pedido"> | string
   observacao?: Prisma.StringNullableFilter<"Pedido"> | string | null
   status?: Prisma.EnumStatusPedidoFilter<"Pedido"> | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFilter<"Pedido"> | $Enums.DiaFeira
   total?: Prisma.DecimalFilter<"Pedido"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFilter<"Pedido"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Pedido"> | Date | string
@@ -253,6 +261,7 @@ export type PedidoOrderByWithRelationInput = {
   clienteContato?: Prisma.SortOrder
   observacao?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  retirada?: Prisma.SortOrder
   total?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   atualizadoEm?: Prisma.SortOrder
@@ -268,6 +277,7 @@ export type PedidoWhereUniqueInput = Prisma.AtLeast<{
   clienteContato?: Prisma.StringFilter<"Pedido"> | string
   observacao?: Prisma.StringNullableFilter<"Pedido"> | string | null
   status?: Prisma.EnumStatusPedidoFilter<"Pedido"> | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFilter<"Pedido"> | $Enums.DiaFeira
   total?: Prisma.DecimalFilter<"Pedido"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFilter<"Pedido"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Pedido"> | Date | string
@@ -280,6 +290,7 @@ export type PedidoOrderByWithAggregationInput = {
   clienteContato?: Prisma.SortOrder
   observacao?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  retirada?: Prisma.SortOrder
   total?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   atualizadoEm?: Prisma.SortOrder
@@ -299,6 +310,7 @@ export type PedidoScalarWhereWithAggregatesInput = {
   clienteContato?: Prisma.StringWithAggregatesFilter<"Pedido"> | string
   observacao?: Prisma.StringNullableWithAggregatesFilter<"Pedido"> | string | null
   status?: Prisma.EnumStatusPedidoWithAggregatesFilter<"Pedido"> | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraWithAggregatesFilter<"Pedido"> | $Enums.DiaFeira
   total?: Prisma.DecimalWithAggregatesFilter<"Pedido"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Pedido"> | Date | string
   atualizadoEm?: Prisma.DateTimeWithAggregatesFilter<"Pedido"> | Date | string
@@ -309,6 +321,7 @@ export type PedidoCreateInput = {
   clienteContato: string
   observacao?: string | null
   status?: $Enums.StatusPedido
+  retirada?: $Enums.DiaFeira
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Date | string
   atualizadoEm?: Date | string
@@ -321,6 +334,7 @@ export type PedidoUncheckedCreateInput = {
   clienteContato: string
   observacao?: string | null
   status?: $Enums.StatusPedido
+  retirada?: $Enums.DiaFeira
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Date | string
   atualizadoEm?: Date | string
@@ -332,6 +346,7 @@ export type PedidoUpdateInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -344,6 +359,7 @@ export type PedidoUncheckedUpdateInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -356,6 +372,7 @@ export type PedidoCreateManyInput = {
   clienteContato: string
   observacao?: string | null
   status?: $Enums.StatusPedido
+  retirada?: $Enums.DiaFeira
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Date | string
   atualizadoEm?: Date | string
@@ -366,6 +383,7 @@ export type PedidoUpdateManyMutationInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -377,6 +395,7 @@ export type PedidoUncheckedUpdateManyInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +407,7 @@ export type PedidoCountOrderByAggregateInput = {
   clienteContato?: Prisma.SortOrder
   observacao?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  retirada?: Prisma.SortOrder
   total?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   atualizadoEm?: Prisma.SortOrder
@@ -404,6 +424,7 @@ export type PedidoMaxOrderByAggregateInput = {
   clienteContato?: Prisma.SortOrder
   observacao?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  retirada?: Prisma.SortOrder
   total?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   atualizadoEm?: Prisma.SortOrder
@@ -415,6 +436,7 @@ export type PedidoMinOrderByAggregateInput = {
   clienteContato?: Prisma.SortOrder
   observacao?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  retirada?: Prisma.SortOrder
   total?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   atualizadoEm?: Prisma.SortOrder
@@ -432,6 +454,10 @@ export type PedidoScalarRelationFilter = {
 
 export type EnumStatusPedidoFieldUpdateOperationsInput = {
   set?: $Enums.StatusPedido
+}
+
+export type EnumDiaFeiraFieldUpdateOperationsInput = {
+  set?: $Enums.DiaFeira
 }
 
 export type PedidoCreateNestedOneWithoutItensInput = {
@@ -453,6 +479,7 @@ export type PedidoCreateWithoutItensInput = {
   clienteContato: string
   observacao?: string | null
   status?: $Enums.StatusPedido
+  retirada?: $Enums.DiaFeira
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Date | string
   atualizadoEm?: Date | string
@@ -464,6 +491,7 @@ export type PedidoUncheckedCreateWithoutItensInput = {
   clienteContato: string
   observacao?: string | null
   status?: $Enums.StatusPedido
+  retirada?: $Enums.DiaFeira
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Date | string
   atualizadoEm?: Date | string
@@ -490,6 +518,7 @@ export type PedidoUpdateWithoutItensInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -501,6 +530,7 @@ export type PedidoUncheckedUpdateWithoutItensInput = {
   clienteContato?: Prisma.StringFieldUpdateOperationsInput | string
   observacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusPedidoFieldUpdateOperationsInput | $Enums.StatusPedido
+  retirada?: Prisma.EnumDiaFeiraFieldUpdateOperationsInput | $Enums.DiaFeira
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   atualizadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -543,6 +573,7 @@ export type PedidoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   clienteContato?: boolean
   observacao?: boolean
   status?: boolean
+  retirada?: boolean
   total?: boolean
   criadoEm?: boolean
   atualizadoEm?: boolean
@@ -556,6 +587,7 @@ export type PedidoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   clienteContato?: boolean
   observacao?: boolean
   status?: boolean
+  retirada?: boolean
   total?: boolean
   criadoEm?: boolean
   atualizadoEm?: boolean
@@ -567,6 +599,7 @@ export type PedidoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   clienteContato?: boolean
   observacao?: boolean
   status?: boolean
+  retirada?: boolean
   total?: boolean
   criadoEm?: boolean
   atualizadoEm?: boolean
@@ -578,12 +611,13 @@ export type PedidoSelectScalar = {
   clienteContato?: boolean
   observacao?: boolean
   status?: boolean
+  retirada?: boolean
   total?: boolean
   criadoEm?: boolean
   atualizadoEm?: boolean
 }
 
-export type PedidoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clienteNome" | "clienteContato" | "observacao" | "status" | "total" | "criadoEm" | "atualizadoEm", ExtArgs["result"]["pedido"]>
+export type PedidoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clienteNome" | "clienteContato" | "observacao" | "status" | "retirada" | "total" | "criadoEm" | "atualizadoEm", ExtArgs["result"]["pedido"]>
 export type PedidoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   itens?: boolean | Prisma.Pedido$itensArgs<ExtArgs>
   _count?: boolean | Prisma.PedidoCountOutputTypeDefaultArgs<ExtArgs>
@@ -602,6 +636,7 @@ export type $PedidoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     clienteContato: string
     observacao: string | null
     status: $Enums.StatusPedido
+    retirada: $Enums.DiaFeira
     total: runtime.Decimal
     criadoEm: Date
     atualizadoEm: Date
@@ -1034,6 +1069,7 @@ export interface PedidoFieldRefs {
   readonly clienteContato: Prisma.FieldRef<"Pedido", 'String'>
   readonly observacao: Prisma.FieldRef<"Pedido", 'String'>
   readonly status: Prisma.FieldRef<"Pedido", 'StatusPedido'>
+  readonly retirada: Prisma.FieldRef<"Pedido", 'DiaFeira'>
   readonly total: Prisma.FieldRef<"Pedido", 'Decimal'>
   readonly criadoEm: Prisma.FieldRef<"Pedido", 'DateTime'>
   readonly atualizadoEm: Prisma.FieldRef<"Pedido", 'DateTime'>

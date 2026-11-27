@@ -948,6 +948,7 @@ export const PedidoScalarFieldEnum = {
   clienteContato: 'clienteContato',
   observacao: 'observacao',
   status: 'status',
+  retirada: 'retirada',
   total: 'total',
   criadoEm: 'criadoEm',
   atualizadoEm: 'atualizadoEm'
@@ -1098,6 +1099,20 @@ export type EnumStatusPedidoFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'StatusPedido[]'
  */
 export type ListEnumStatusPedidoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusPedido[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DiaFeira'
+ */
+export type EnumDiaFeiraFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiaFeira'>
+    
+
+
+/**
+ * Reference to a field of type 'DiaFeira[]'
+ */
+export type ListEnumDiaFeiraFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiaFeira[]'>
     
 
 

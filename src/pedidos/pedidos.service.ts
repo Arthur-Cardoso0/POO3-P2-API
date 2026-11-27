@@ -26,6 +26,7 @@ export class PedidosService {
       clienteNome: dto.clienteNome,
       clienteContato: dto.clienteContato,
       observacao: dto.observacao,
+      retirada: dto.retirada,
       itens: [...porProduto].map(([produtoId, quantidade]) => ({ produtoId, quantidade })),
     });
   }

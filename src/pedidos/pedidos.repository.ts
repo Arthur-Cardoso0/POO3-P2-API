@@ -31,6 +31,7 @@ function paraPedido(l: LinhaPedido): Pedido {
     clienteContato: l.clienteContato,
     observacao: l.observacao,
     status: l.status,
+    retirada: l.retirada,
     total: l.total.toNumber(),
     criadoEm: l.criadoEm,
     itens: l.itens.map((i) => ({
@@ -99,6 +100,7 @@ export class PrismaPedidoRepository extends PedidoRepository {
           clienteNome: dados.clienteNome,
           clienteContato: dados.clienteContato,
           observacao: dados.observacao ?? null,
+          retirada: dados.retirada,
           total: totalCentavos / 100,
           itens: { create: itens },
         },
@@ -109,7 +111,10 @@ export class PrismaPedidoRepository extends PedidoRepository {
   }
 
   async listar(filtro: FiltroPedidos) {
-    const where: Prisma.PedidoWhereInput = filtro.status ? { status: filtro.status } : {};
+    const where: Prisma.PedidoWhereInput = {
+      ...(filtro.status ? { status: filtro.status } : {}),
+      ...(filtro.retirada ? { retirada: filtro.retirada } : {}),
+    };
     const [linhas, total] = await this.prisma.$transaction([
       this.prisma.pedido.findMany({
         where,

@@ -12,6 +12,11 @@ enum Perfil {
   OPERADOR
 }
 
+enum DiaFeira {
+  QUARTA
+  SABADO
+}
+
 enum StatusPedido {
   PENDENTE
   CONFIRMADO
@@ -58,6 +63,8 @@ model Pedido {
   clienteContato String
   observacao     String?
   status         StatusPedido @default(PENDENTE)
+  // Dia da feira em que o cliente vai retirar o pedido
+  retirada       DiaFeira     @default(SABADO)
   total          Decimal      @db.Decimal(10, 2)
   itens          ItemPedido[]
   criadoEm       DateTime     @default(now())
