@@ -3,10 +3,13 @@ import { paginacaoSchema } from '../common/pagination.js';
 
 export const STATUS = ['PENDENTE', 'CONFIRMADO', 'ENTREGUE', 'CANCELADO'] as const;
 
+export const DIAS_FEIRA = ['QUARTA', 'SABADO'] as const;
+
 export const criarPedidoSchema = z.object({
   clienteNome: z.string().trim().min(2).max(100),
   clienteContato: z.string().trim().min(5, 'Informe telefone ou e-mail').max(100),
   observacao: z.string().trim().max(300).optional(),
+  retirada: z.enum(DIAS_FEIRA, { error: 'Escolha o dia de retirada (quarta ou sábado)' }),
   itens: z
     .array(
       z.object({
@@ -25,6 +28,7 @@ export type CriarPedidoDto = z.infer<typeof criarPedidoSchema>;
 
 export const filtroPedidosSchema = paginacaoSchema.extend({
   status: z.enum(STATUS).optional(),
+  retirada: z.enum(DIAS_FEIRA).optional(),
 });
 export type FiltroPedidosDto = z.infer<typeof filtroPedidosSchema>;
 

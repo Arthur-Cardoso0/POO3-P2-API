@@ -36,8 +36,8 @@ Os serviços dependem de **classes abstratas** de repositório (injeção por co
 | `GET /produtos?pagina&limite&busca&categoriaId`, `GET /produtos/:id`, `GET /categorias` | público |
 | `POST /pedidos`, `POST /mensagens` | público (com consentimento) |
 | `GET /admin/produtos`, `POST/PATCH /produtos`, `POST /categorias` | logado |
-| `GET /pedidos`, `GET /pedidos/:id`, `PATCH /pedidos/:id/status`, `GET /mensagens`, `PATCH /mensagens/:id/lida` | logado |
-| `DELETE /produtos/:id` (desativa), `GET/POST /usuarios`, `GET /relatorios/*` | só ADMIN |
+| `GET /pedidos?status&retirada`, `GET /pedidos/:id`, `PATCH /pedidos/:id/status`, `GET /mensagens`, `PATCH /mensagens/:id/lida` | logado |
+| `DELETE /produtos/:id` (desativa), `GET/POST /usuarios`, `GET /relatorios/*` (inclui `separacao?dia=QUARTA|SABADO`) | só ADMIN |
 
 Fluxo de status do pedido: `PENDENTE → CONFIRMADO → ENTREGUE`; cancelar é possível a partir de `PENDENTE` ou `CONFIRMADO`.
 
@@ -50,3 +50,9 @@ ADMIN_NOME="Nome" ADMIN_EMAIL="admin@dominio.com" ADMIN_SENHA="senha-forte-10+" 
 ```
 
 No PowerShell: `$env:ADMIN_NOME="Nome"; $env:ADMIN_EMAIL="..."; $env:ADMIN_SENHA="..."; npm run admin:criar`.
+
+## Raízes do Cerrado — retirada na feira
+
+O parceiro vende produtos naturais de fazenda na feira, às **quartas e sábados**. Todo pedido tem o campo `retirada`
+(`QUARTA` ou `SABADO`) e o relatório `GET /relatorios/separacao?dia=...` soma, por produto, o que precisa ser levado
+à feira naquele dia (pedidos pendentes e confirmados).

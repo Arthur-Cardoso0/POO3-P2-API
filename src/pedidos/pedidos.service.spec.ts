@@ -28,7 +28,7 @@ class FakePedidoRepository extends PedidoRepository {
   pedido(id: number, status: StatusPedido): Pedido {
     return {
       id, status, clienteNome: 'Ana', clienteContato: 'ana@teste.com',
-      observacao: null, total: 0, itens: [], criadoEm: new Date(),
+      observacao: null, retirada: 'SABADO', total: 0, itens: [], criadoEm: new Date(),
     };
   }
 }
@@ -47,12 +47,14 @@ describe('PedidosService', () => {
       clienteNome: 'Ana',
       clienteContato: 'ana@teste.com',
       consentimento: true,
+      retirada: 'QUARTA',
       itens: [
         { produtoId: 1, quantidade: 2 },
         { produtoId: 2, quantidade: 1 },
         { produtoId: 1, quantidade: 3 },
       ],
     });
+    expect(repo.ultimoNovo?.retirada).toBe('QUARTA');
     expect(repo.ultimoNovo?.itens).toEqual([
       { produtoId: 1, quantidade: 5 },
       { produtoId: 2, quantidade: 1 },

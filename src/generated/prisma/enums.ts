@@ -17,6 +17,14 @@ export const Perfil = {
 export type Perfil = (typeof Perfil)[keyof typeof Perfil]
 
 
+export const DiaFeira = {
+  QUARTA: 'QUARTA',
+  SABADO: 'SABADO'
+} as const
+
+export type DiaFeira = (typeof DiaFeira)[keyof typeof DiaFeira]
+
+
 export const StatusPedido = {
   PENDENTE: 'PENDENTE',
   CONFIRMADO: 'CONFIRMADO',

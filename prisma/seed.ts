@@ -33,7 +33,7 @@ async function main() {
     create: { nome: 'Operador (fictício)', email: 'operador@exemplo.local', senha, perfil: 'OPERADOR' },
   });
 
-  const categorias = ['Alimentos', 'Artesanato', 'Hortifruti'];
+  const categorias = ['Mel e derivados', 'Laticínios e ovos', 'Doces e geleias', 'Hortifruti e grãos'];
   for (const nome of categorias) {
     await prisma.categoria.upsert({ where: { nome }, update: {}, create: { nome } });
   }
@@ -41,15 +41,19 @@ async function main() {
     (await prisma.categoria.findMany()).map((c) => [c.nome, c.id]),
   ) as Record<string, number>;
 
+  // Produtos e preços FICTÍCIOS de demonstração: troque pelos produtos reais do feirante.
   if ((await prisma.produto.count()) === 0) {
     await prisma.produto.createMany({
       data: [
-        { nome: 'Mel orgânico 500g', descricao: 'Mel de produtor local.', preco: 28, estoque: 20, categoriaId: cat.Alimentos! },
-        { nome: 'Geleia de goiaba', descricao: 'Feita em panela de cobre.', preco: 15.5, estoque: 12, categoriaId: cat.Alimentos! },
-        { nome: 'Bolsa de crochê', descricao: 'Artesanal, cores variadas.', preco: 85, estoque: 6, categoriaId: cat.Artesanato! },
-        { nome: 'Vaso de cerâmica', descricao: 'Pintado à mão.', preco: 60, estoque: 4, categoriaId: cat.Artesanato! },
-        { nome: 'Cesta de hortaliças', descricao: 'Colheita da semana.', preco: 35, estoque: 15, categoriaId: cat.Hortifruti! },
-        { nome: 'Ovos caipiras (dúzia)', descricao: 'Galinhas criadas soltas.', preco: 14, estoque: 30, categoriaId: cat.Hortifruti! },
+        { nome: 'Mel silvestre 500g', descricao: 'Mel puro de flores do cerrado, sem aditivos.', preco: 32, estoque: 20, categoriaId: cat['Mel e derivados']! },
+        { nome: 'Própolis em gotas', descricao: 'Extrato de própolis, frasco de 30 ml.', preco: 25, estoque: 10, categoriaId: cat['Mel e derivados']! },
+        { nome: 'Queijo minas artesanal', descricao: 'Fresco, feito com leite da fazenda (peça de cerca de 500g).', preco: 30, estoque: 12, categoriaId: cat['Laticínios e ovos']! },
+        { nome: 'Ovos caipiras (dúzia)', descricao: 'De galinhas criadas soltas.', preco: 16, estoque: 30, categoriaId: cat['Laticínios e ovos']! },
+        { nome: 'Doce de leite caseiro', descricao: 'Pote de 400g, em tacho.', preco: 18, estoque: 15, categoriaId: cat['Doces e geleias']! },
+        { nome: 'Geleia de pequi', descricao: 'Vidro de 250g, feita na fazenda.', preco: 22, estoque: 8, categoriaId: cat['Doces e geleias']! },
+        { nome: 'Rapadura (unidade)', descricao: 'Rapadura de engenho, cerca de 300g.', preco: 6, estoque: 40, categoriaId: cat['Doces e geleias']! },
+        { nome: 'Farinha de mandioca 1kg', descricao: 'Torrada artesanalmente.', preco: 12, estoque: 25, categoriaId: cat['Hortifruti e grãos']! },
+        { nome: 'Cesta de hortaliças da estação', descricao: 'Colhidas na semana da feira.', preco: 35, estoque: 10, categoriaId: cat['Hortifruti e grãos']! },
       ],
     });
   }
